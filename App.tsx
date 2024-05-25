@@ -21,7 +21,7 @@ function App({ children }: PropsWithChildren) {
         const locale = localStorage.getItem('i18nextLng') || themeConfig.locale;
         dispatch(toggleLocale(locale));
         i18n.changeLanguage(locale);
-    }, [dispatch, themeConfig.theme, themeConfig.menu, themeConfig.layout, themeConfig.rtlClass, themeConfig.animation, themeConfig.navbar, themeConfig.locale, themeConfig.semidark]);
+    }, [dispatch, themeConfig.theme, themeConfig.menu, themeConfig.layout, themeConfig.rtlClass, themeConfig.animation, themeConfig.navbar, themeConfig.locale, themeConfig.semidark, i18n]);
 
     return (
         <div
