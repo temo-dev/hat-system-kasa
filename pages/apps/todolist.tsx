@@ -602,7 +602,7 @@ const Todolist = () => {
         <div>
             <div className="relative flex h-full gap-5 sm:h-[calc(100vh_-_150px)]">
                 <div
-                    className={`panel absolute z-10 hidden h-full w-[240px] max-w-full flex-none space-y-4 p-4 ltr:rounded-r-none rtl:rounded-l-none xl:relative xl:block xl:h-auto ltr:xl:rounded-r-md rtl:xl:rounded-l-md ${
+                    className={`panel absolute z-10 hidden h-full w-[240px] max-w-full flex-none space-y-4 p-4 xl:relative xl:block xl:h-auto ltr:rounded-r-none ltr:xl:rounded-r-md rtl:rounded-l-none rtl:xl:rounded-l-md ${
                         isShowTaskMenu && '!block'
                     }`}
                 >
@@ -629,10 +629,10 @@ const Todolist = () => {
                                     }}
                                 >
                                     <div className="flex items-center">
-                                        <IconListCheck className="w-4.5 h-4.5 shrink-0" />
+                                        <IconListCheck className="h-4.5 w-4.5 shrink-0" />
                                         <div className="ltr:ml-3 rtl:mr-3">Inbox</div>
                                     </div>
-                                    <div className="whitespace-nowrap rounded-md bg-primary-light py-0.5 px-2 font-semibold dark:bg-[#060818]">
+                                    <div className="whitespace-nowrap rounded-md bg-primary-light px-2 py-0.5 font-semibold dark:bg-[#060818]">
                                         {allTasks && allTasks.filter((d) => d.status !== 'trash').length}
                                     </div>
                                 </button>
@@ -647,10 +647,10 @@ const Todolist = () => {
                                     }}
                                 >
                                     <div className="flex items-center">
-                                        <IconThumbUp className="w-5 h-5 shrink-0" />
+                                        <IconThumbUp className="h-5 w-5 shrink-0" />
                                         <div className="ltr:ml-3 rtl:mr-3">Done</div>
                                     </div>
-                                    <div className="whitespace-nowrap rounded-md bg-primary-light py-0.5 px-2 font-semibold dark:bg-[#060818]">
+                                    <div className="whitespace-nowrap rounded-md bg-primary-light px-2 py-0.5 font-semibold dark:bg-[#060818]">
                                         {allTasks && allTasks.filter((d) => d.status === 'complete').length}
                                     </div>
                                 </button>
@@ -668,7 +668,7 @@ const Todolist = () => {
                                         <IconStar className="shrink-0" />
                                         <div className="ltr:ml-3 rtl:mr-3">Important</div>
                                     </div>
-                                    <div className="whitespace-nowrap rounded-md bg-primary-light py-0.5 px-2 font-semibold dark:bg-[#060818]">
+                                    <div className="whitespace-nowrap rounded-md bg-primary-light px-2 py-0.5 font-semibold dark:bg-[#060818]">
                                         {allTasks && allTasks.filter((d) => d.status === 'important').length}
                                     </div>
                                 </button>
@@ -691,75 +691,75 @@ const Todolist = () => {
                                 <div className="px-1 py-3 text-white-dark">Tags</div>
                                 <button
                                     type="button"
-                                    className={`flex h-10 w-full items-center rounded-md p-1 font-medium text-success duration-300 hover:bg-white-dark/10 ltr:hover:pl-3 rtl:hover:pr-3 dark:hover:bg-[#181F32] ${
-                                        selectedTab === 'team' && 'bg-gray-100 ltr:pl-3 rtl:pr-3 dark:bg-[#181F32]'
+                                    className={`flex h-10 w-full items-center rounded-md p-1 font-medium text-success duration-300 hover:bg-white-dark/10 dark:hover:bg-[#181F32] ltr:hover:pl-3 rtl:hover:pr-3 ${
+                                        selectedTab === 'team' && 'bg-gray-100 dark:bg-[#181F32] ltr:pl-3 rtl:pr-3'
                                     }`}
                                     onClick={() => {
                                         tabChanged();
                                         setSelectedTab('team');
                                     }}
                                 >
-                                    <IconSquareRotated className="fill-success shrink-0" />
+                                    <IconSquareRotated className="shrink-0 fill-success" />
                                     <div className="ltr:ml-3 rtl:mr-3">Team</div>
                                 </button>
                                 <button
                                     type="button"
-                                    className={`flex h-10 w-full items-center rounded-md p-1 font-medium text-warning duration-300 hover:bg-white-dark/10 ltr:hover:pl-3 rtl:hover:pr-3 dark:hover:bg-[#181F32] ${
-                                        selectedTab === 'low' && 'bg-gray-100 ltr:pl-3 rtl:pr-3 dark:bg-[#181F32]'
+                                    className={`flex h-10 w-full items-center rounded-md p-1 font-medium text-warning duration-300 hover:bg-white-dark/10 dark:hover:bg-[#181F32] ltr:hover:pl-3 rtl:hover:pr-3 ${
+                                        selectedTab === 'low' && 'bg-gray-100 dark:bg-[#181F32] ltr:pl-3 rtl:pr-3'
                                     }`}
                                     onClick={() => {
                                         tabChanged();
                                         setSelectedTab('low');
                                     }}
                                 >
-                                    <IconSquareRotated className="fill-warning shrink-0" />
+                                    <IconSquareRotated className="shrink-0 fill-warning" />
                                     <div className="ltr:ml-3 rtl:mr-3">Low</div>
                                 </button>
 
                                 <button
                                     type="button"
-                                    className={`flex h-10 w-full items-center rounded-md p-1 font-medium text-primary duration-300 hover:bg-white-dark/10 ltr:hover:pl-3 rtl:hover:pr-3 dark:hover:bg-[#181F32] ${
-                                        selectedTab === 'medium' && 'bg-gray-100 ltr:pl-3 rtl:pr-3 dark:bg-[#181F32]'
+                                    className={`flex h-10 w-full items-center rounded-md p-1 font-medium text-primary duration-300 hover:bg-white-dark/10 dark:hover:bg-[#181F32] ltr:hover:pl-3 rtl:hover:pr-3 ${
+                                        selectedTab === 'medium' && 'bg-gray-100 dark:bg-[#181F32] ltr:pl-3 rtl:pr-3'
                                     }`}
                                     onClick={() => {
                                         tabChanged();
                                         setSelectedTab('medium');
                                     }}
                                 >
-                                    <IconSquareRotated className="fill-primary shrink-0" />
+                                    <IconSquareRotated className="shrink-0 fill-primary" />
                                     <div className="ltr:ml-3 rtl:mr-3">Medium</div>
                                 </button>
                                 <button
                                     type="button"
-                                    className={`flex h-10 w-full items-center rounded-md p-1 font-medium text-danger duration-300 hover:bg-white-dark/10 ltr:hover:pl-3 rtl:hover:pr-3 dark:hover:bg-[#181F32] ${
-                                        selectedTab === 'high' && 'bg-gray-100 ltr:pl-3 rtl:pr-3 dark:bg-[#181F32]'
+                                    className={`flex h-10 w-full items-center rounded-md p-1 font-medium text-danger duration-300 hover:bg-white-dark/10 dark:hover:bg-[#181F32] ltr:hover:pl-3 rtl:hover:pr-3 ${
+                                        selectedTab === 'high' && 'bg-gray-100 dark:bg-[#181F32] ltr:pl-3 rtl:pr-3'
                                     }`}
                                     onClick={() => {
                                         tabChanged();
                                         setSelectedTab('high');
                                     }}
                                 >
-                                    <IconSquareRotated className="fill-danger shrink-0" />
+                                    <IconSquareRotated className="shrink-0 fill-danger" />
                                     <div className="ltr:ml-3 rtl:mr-3">High</div>
                                 </button>
                                 <button
                                     type="button"
-                                    className={`flex h-10 w-full items-center rounded-md p-1 font-medium text-info duration-300 hover:bg-white-dark/10 ltr:hover:pl-3 rtl:hover:pr-3 dark:hover:bg-[#181F32] ${
-                                        selectedTab === 'update' && 'bg-gray-100 ltr:pl-3 rtl:pr-3 dark:bg-[#181F32]'
+                                    className={`flex h-10 w-full items-center rounded-md p-1 font-medium text-info duration-300 hover:bg-white-dark/10 dark:hover:bg-[#181F32] ltr:hover:pl-3 rtl:hover:pr-3 ${
+                                        selectedTab === 'update' && 'bg-gray-100 dark:bg-[#181F32] ltr:pl-3 rtl:pr-3'
                                     }`}
                                     onClick={() => {
                                         tabChanged();
                                         setSelectedTab('update');
                                     }}
                                 >
-                                    <IconSquareRotated className="fill-info shrink-0" />
+                                    <IconSquareRotated className="shrink-0 fill-info" />
                                     <div className="ltr:ml-3 rtl:mr-3">Update</div>
                                 </button>
                             </div>
                         </PerfectScrollbar>
                         <div className="absolute bottom-0 w-full p-4 ltr:left-0 rtl:right-0">
                             <button className="btn btn-primary w-full" type="button" onClick={() => addEditTask()}>
-                                <IconPlus className="ltr:mr-2 rtl:ml-2 shrink-0" />
+                                <IconPlus className="shrink-0 ltr:mr-2 rtl:ml-2" />
                                 Add New Task
                             </button>
                         </div>
@@ -770,7 +770,7 @@ const Todolist = () => {
                     <div className="flex h-full flex-col">
                         <div className="flex w-full flex-col gap-4 p-4 sm:flex-row sm:items-center">
                             <div className="flex items-center ltr:mr-3 rtl:ml-3">
-                                <button type="button" className="block hover:text-primary ltr:mr-3 rtl:ml-3 xl:hidden" onClick={() => setIsShowTaskMenu(!isShowTaskMenu)}>
+                                <button type="button" className="block hover:text-primary xl:hidden ltr:mr-3 rtl:ml-3" onClick={() => setIsShowTaskMenu(!isShowTaskMenu)}>
                                     <IconMenu />
                                 </button>
                                 <div className="group relative flex-1">
@@ -792,13 +792,13 @@ const Todolist = () => {
                                 <button
                                     type="button"
                                     disabled={pager.currentPage === 1}
-                                    className="rounded-md bg-[#f4f4f4] p-1 enabled:hover:bg-primary-light disabled:cursor-not-allowed disabled:opacity-60 ltr:mr-3 rtl:ml-3 dark:bg-white-dark/20 enabled:dark:hover:bg-white-dark/30"
+                                    className="rounded-md bg-[#f4f4f4] p-1 enabled:hover:bg-primary-light disabled:cursor-not-allowed disabled:opacity-60 dark:bg-white-dark/20 enabled:dark:hover:bg-white-dark/30 ltr:mr-3 rtl:ml-3"
                                     onClick={() => {
                                         pager.currentPage--;
                                         searchTasks(false);
                                     }}
                                 >
-                                    <IconCaretDown className="w-5 h-5 rtl:-rotate-90 rotate-90" />
+                                    <IconCaretDown className="h-5 w-5 rotate-90 rtl:-rotate-90" />
                                 </button>
                                 <button
                                     type="button"
@@ -809,7 +809,7 @@ const Todolist = () => {
                                         searchTasks(false);
                                     }}
                                 >
-                                    <IconCaretDown className="w-5 h-5 rtl:rotate-90 -rotate-90" />
+                                    <IconCaretDown className="h-5 w-5 -rotate-90 rtl:rotate-90" />
                                 </button>
                             </div>
                         </div>
@@ -837,7 +837,7 @@ const Todolist = () => {
                                                             <div className={`whitespace-nowrap text-base font-semibold group-hover:text-primary ${task.status === 'complete' ? 'line-through' : ''}`}>
                                                                 {task.title}
                                                             </div>
-                                                            <div className={`min-w-[300px] overflow-hidden text-white-dark line-clamp-1 ${task.status === 'complete' ? 'line-through' : ''}`}>
+                                                            <div className={`line-clamp-1 min-w-[300px] overflow-hidden text-white-dark ${task.status === 'complete' ? 'line-through' : ''}`}>
                                                                 {task.descriptionText}
                                                             </div>
                                                         </div>
@@ -959,7 +959,7 @@ const Todolist = () => {
                                                                 )}
                                                                 {!task.path && !task.assignee ? (
                                                                     <div className="grid h-8 w-8 place-content-center rounded-full border border-gray-300 dark:border-gray-800">
-                                                                        <IconUser className="w-4.5 h-4.5" />
+                                                                        <IconUser className="h-4.5 w-4.5" />
                                                                     </div>
                                                                 ) : (
                                                                     ''
@@ -977,19 +977,19 @@ const Todolist = () => {
                                                                             <>
                                                                                 <li>
                                                                                     <button type="button" onClick={() => addEditTask(task)}>
-                                                                                        <IconPencilPaper className="w-4.5 h-4.5 ltr:mr-2 rtl:ml-2 shrink-0" />
+                                                                                        <IconPencilPaper className="h-4.5 w-4.5 shrink-0 ltr:mr-2 rtl:ml-2" />
                                                                                         Edit
                                                                                     </button>
                                                                                 </li>
                                                                                 <li>
                                                                                     <button type="button" onClick={() => deleteTask(task, 'delete')}>
-                                                                                        <IconTrashLines className="ltr:mr-2 rtl:ml-2 shrink-0" />
+                                                                                        <IconTrashLines className="shrink-0 ltr:mr-2 rtl:ml-2" />
                                                                                         Delete
                                                                                     </button>
                                                                                 </li>
                                                                                 <li>
                                                                                     <button type="button" onClick={() => setImportant(task)}>
-                                                                                        <IconStar className="w-4.5 h-4.5 ltr:mr-2 rtl:ml-2 shrink-0" />
+                                                                                        <IconStar className="h-4.5 w-4.5 shrink-0 ltr:mr-2 rtl:ml-2" />
                                                                                         <span>{task.status === 'important' ? 'Not Important' : 'Important'}</span>
                                                                                     </button>
                                                                                 </li>
@@ -999,13 +999,13 @@ const Todolist = () => {
                                                                             <>
                                                                                 <li>
                                                                                     <button type="button" onClick={() => deleteTask(task, 'deletePermanent')}>
-                                                                                        <IconTrashLines className="ltr:mr-2 rtl:ml-2 shrink-0" />
+                                                                                        <IconTrashLines className="shrink-0 ltr:mr-2 rtl:ml-2" />
                                                                                         Permanent Delete
                                                                                     </button>
                                                                                 </li>
                                                                                 <li>
                                                                                     <button type="button" onClick={() => deleteTask(task, 'restore')}>
-                                                                                        <IconRestore className="ltr:mr-2 rtl:ml-2 shrink-0" />
+                                                                                        <IconRestore className="shrink-0 ltr:mr-2 rtl:ml-2" />
                                                                                         Restore Task
                                                                                     </button>
                                                                                 </li>
@@ -1057,11 +1057,11 @@ const Todolist = () => {
                                         <button
                                             type="button"
                                             onClick={() => setAddTaskModal(false)}
-                                            className="absolute top-4 text-gray-400 outline-none hover:text-gray-800 ltr:right-4 rtl:left-4 dark:hover:text-gray-600"
+                                            className="absolute top-4 text-gray-400 outline-none hover:text-gray-800 dark:hover:text-gray-600 ltr:right-4 rtl:left-4"
                                         >
                                             <IconX />
                                         </button>
-                                        <div className="bg-[#fbfbfb] py-3 text-lg font-medium ltr:pl-5 ltr:pr-[50px] rtl:pr-5 rtl:pl-[50px] dark:bg-[#121c2c]">
+                                        <div className="bg-[#fbfbfb] py-3 text-lg font-medium dark:bg-[#121c2c] ltr:pl-5 ltr:pr-[50px] rtl:pl-[50px] rtl:pr-5">
                                             {params.id ? 'Edit Task' : 'Add Task'}
                                         </div>
                                         <div className="p-5">
@@ -1162,11 +1162,11 @@ const Todolist = () => {
                                         <button
                                             type="button"
                                             onClick={() => setViewTaskModal(false)}
-                                            className="absolute top-4 text-gray-400 outline-none hover:text-gray-800 ltr:right-4 rtl:left-4 dark:hover:text-gray-600"
+                                            className="absolute top-4 text-gray-400 outline-none hover:text-gray-800 dark:hover:text-gray-600 ltr:right-4 rtl:left-4"
                                         >
                                             <IconX />
                                         </button>
-                                        <div className="flex flex-wrap items-center gap-2 bg-[#fbfbfb] py-3 text-lg font-medium ltr:pl-5 ltr:pr-[50px] rtl:pr-5 rtl:pl-[50px] dark:bg-[#121c2c]">
+                                        <div className="flex flex-wrap items-center gap-2 bg-[#fbfbfb] py-3 text-lg font-medium dark:bg-[#121c2c] ltr:pl-5 ltr:pr-[50px] rtl:pl-[50px] rtl:pr-5">
                                             <div>{selectedTask.title}</div>
                                             {selectedTask.priority && (
                                                 <div
@@ -1195,7 +1195,7 @@ const Todolist = () => {
                                         </div>
                                         <div className="p-5">
                                             <div
-                                                className="text-base prose"
+                                                className="prose text-base"
                                                 dangerouslySetInnerHTML={{
                                                     __html: selectedTask.description,
                                                 }}
