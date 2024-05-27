@@ -430,7 +430,7 @@ const Index = () => {
                                     <Dropdown
                                         offset={[0, 1]}
                                         placement={`${isRtl ? 'bottom-start' : 'bottom-end'}`}
-                                        button={<IconHorizontalDots className="text-black/70 dark:text-white/70 hover:!text-primary" />}
+                                        button={<IconHorizontalDots className="text-black/70 hover:!text-primary dark:text-white/70" />}
                                     >
                                         <ul>
                                             <li>
@@ -511,7 +511,7 @@ const Index = () => {
                                 <div className="dropdown">
                                     <Dropdown
                                         placement={`${isRtl ? 'bottom-start' : 'bottom-end'}`}
-                                        button={<IconHorizontalDots className="w-5 h-5 text-black/70 dark:text-white/70 hover:!text-primary" />}
+                                        button={<IconHorizontalDots className="h-5 w-5 text-black/70 hover:!text-primary dark:text-white/70" />}
                                     >
                                         <ul>
                                             <li>
@@ -586,7 +586,7 @@ const Index = () => {
                                         <IconShoppingCart />
                                     </div>
                                 </div>
-                                <h5 className="text-2xl font-semibold ltr:text-right rtl:text-left dark:text-white-light">
+                                <h5 className="text-2xl font-semibold dark:text-white-light ltr:text-right rtl:text-left">
                                     3,192
                                     <span className="block text-sm font-normal">Total Orders</span>
                                 </h5>
@@ -606,131 +606,131 @@ const Index = () => {
                     <div className="mb-6 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
                         <div className="panel h-full pb-0 sm:col-span-2 xl:col-span-1">
                             <h5 className="mb-5 text-lg font-semibold dark:text-white-light">Recent Activities</h5>
-                            <PerfectScrollbar className="relative mb-4 h-[290px] ltr:-mr-3 ltr:pr-3 rtl:-ml-3 rtl:pl-3" options={{suppressScrollX: true}}>
+                            <PerfectScrollbar className="relative mb-4 h-[290px] ltr:-mr-3 ltr:pr-3 rtl:-ml-3 rtl:pl-3" options={{ suppressScrollX: true }}>
                                 <div className="cursor-pointer text-sm">
                                     <div className="group relative flex items-center py-1.5">
                                         <div className="h-1.5 w-1.5 rounded-full bg-primary ltr:mr-1 rtl:ml-1.5"></div>
                                         <div className="flex-1">Updated Server Logs</div>
-                                        <div className="text-xs text-white-dark ltr:ml-auto rtl:mr-auto dark:text-gray-500">Just Now</div>
+                                        <div className="text-xs text-white-dark dark:text-gray-500 ltr:ml-auto rtl:mr-auto">Just Now</div>
 
-                                        <span className="badge badge-outline-primary absolute bg-primary-light text-xs opacity-0 group-hover:opacity-100 ltr:right-0 rtl:left-0 dark:bg-black">
+                                        <span className="badge badge-outline-primary absolute bg-primary-light text-xs opacity-0 group-hover:opacity-100 dark:bg-black ltr:right-0 rtl:left-0">
                                             Pending
                                         </span>
                                     </div>
                                     <div className="group relative flex items-center py-1.5">
                                         <div className="h-1.5 w-1.5 rounded-full bg-success ltr:mr-1 rtl:ml-1.5"></div>
                                         <div className="flex-1">Send Mail to HR and Admin</div>
-                                        <div className="text-xs text-white-dark ltr:ml-auto rtl:mr-auto dark:text-gray-500">2 min ago</div>
+                                        <div className="text-xs text-white-dark dark:text-gray-500 ltr:ml-auto rtl:mr-auto">2 min ago</div>
 
-                                        <span className="badge badge-outline-success absolute bg-success-light text-xs opacity-0 group-hover:opacity-100 ltr:right-0 rtl:left-0 dark:bg-black">
+                                        <span className="badge badge-outline-success absolute bg-success-light text-xs opacity-0 group-hover:opacity-100 dark:bg-black ltr:right-0 rtl:left-0">
                                             Completed
                                         </span>
                                     </div>
                                     <div className="group relative flex items-center py-1.5">
                                         <div className="h-1.5 w-1.5 rounded-full bg-danger ltr:mr-1 rtl:ml-1.5"></div>
                                         <div className="flex-1">Backup Files EOD</div>
-                                        <div className="text-xs text-white-dark ltr:ml-auto rtl:mr-auto dark:text-gray-500">14:00</div>
+                                        <div className="text-xs text-white-dark dark:text-gray-500 ltr:ml-auto rtl:mr-auto">14:00</div>
 
-                                        <span className="badge badge-outline-danger absolute bg-danger-light text-xs opacity-0 group-hover:opacity-100 ltr:right-0 rtl:left-0 dark:bg-black">
+                                        <span className="badge badge-outline-danger absolute bg-danger-light text-xs opacity-0 group-hover:opacity-100 dark:bg-black ltr:right-0 rtl:left-0">
                                             Pending
                                         </span>
                                     </div>
                                     <div className="group relative flex items-center py-1.5">
                                         <div className="h-1.5 w-1.5 rounded-full bg-black ltr:mr-1 rtl:ml-1.5"></div>
                                         <div className="flex-1">Collect documents from Sara</div>
-                                        <div className="text-xs text-white-dark ltr:ml-auto rtl:mr-auto dark:text-gray-500">16:00</div>
+                                        <div className="text-xs text-white-dark dark:text-gray-500 ltr:ml-auto rtl:mr-auto">16:00</div>
 
-                                        <span className="badge badge-outline-dark absolute bg-dark-light text-xs opacity-0 group-hover:opacity-100 ltr:right-0 rtl:left-0 dark:bg-black">
+                                        <span className="badge badge-outline-dark absolute bg-dark-light text-xs opacity-0 group-hover:opacity-100 dark:bg-black ltr:right-0 rtl:left-0">
                                             Completed
                                         </span>
                                     </div>
                                     <div className="group relative flex items-center py-1.5">
                                         <div className="h-1.5 w-1.5 rounded-full bg-warning ltr:mr-1 rtl:ml-1.5"></div>
                                         <div className="flex-1">Conference call with Marketing Manager.</div>
-                                        <div className="text-xs text-white-dark ltr:ml-auto rtl:mr-auto dark:text-gray-500">17:00</div>
+                                        <div className="text-xs text-white-dark dark:text-gray-500 ltr:ml-auto rtl:mr-auto">17:00</div>
 
-                                        <span className="badge badge-outline-warning absolute bg-warning-light text-xs opacity-0 group-hover:opacity-100 ltr:right-0 rtl:left-0 dark:bg-black">
+                                        <span className="badge badge-outline-warning absolute bg-warning-light text-xs opacity-0 group-hover:opacity-100 dark:bg-black ltr:right-0 rtl:left-0">
                                             In progress
                                         </span>
                                     </div>
                                     <div className="group relative flex items-center py-1.5">
                                         <div className="h-1.5 w-1.5 rounded-full bg-info ltr:mr-1 rtl:ml-1.5"></div>
                                         <div className="flex-1">Rebooted Server</div>
-                                        <div className="text-xs text-white-dark ltr:ml-auto rtl:mr-auto dark:text-gray-500">17:00</div>
+                                        <div className="text-xs text-white-dark dark:text-gray-500 ltr:ml-auto rtl:mr-auto">17:00</div>
 
-                                        <span className="badge badge-outline-info absolute bg-info-light text-xs opacity-0 group-hover:opacity-100 ltr:right-0 rtl:left-0 dark:bg-black">
+                                        <span className="badge badge-outline-info absolute bg-info-light text-xs opacity-0 group-hover:opacity-100 dark:bg-black ltr:right-0 rtl:left-0">
                                             Completed
                                         </span>
                                     </div>
                                     <div className="group relative flex items-center py-1.5">
                                         <div className="h-1.5 w-1.5 rounded-full bg-secondary ltr:mr-1 rtl:ml-1.5"></div>
                                         <div className="flex-1">Send contract details to Freelancer</div>
-                                        <div className="text-xs text-white-dark ltr:ml-auto rtl:mr-auto dark:text-gray-500">18:00</div>
+                                        <div className="text-xs text-white-dark dark:text-gray-500 ltr:ml-auto rtl:mr-auto">18:00</div>
 
-                                        <span className="badge badge-outline-secondary absolute bg-secondary-light text-xs opacity-0 group-hover:opacity-100 ltr:right-0 rtl:left-0 dark:bg-black">
+                                        <span className="badge badge-outline-secondary absolute bg-secondary-light text-xs opacity-0 group-hover:opacity-100 dark:bg-black ltr:right-0 rtl:left-0">
                                             Pending
                                         </span>
                                     </div>
                                     <div className="group relative flex items-center py-1.5">
                                         <div className="h-1.5 w-1.5 rounded-full bg-primary ltr:mr-1 rtl:ml-1.5"></div>
                                         <div className="flex-1">Updated Server Logs</div>
-                                        <div className="text-xs text-white-dark ltr:ml-auto rtl:mr-auto dark:text-gray-500">Just Now</div>
+                                        <div className="text-xs text-white-dark dark:text-gray-500 ltr:ml-auto rtl:mr-auto">Just Now</div>
 
-                                        <span className="badge badge-outline-primary absolute bg-primary-light text-xs opacity-0 group-hover:opacity-100 ltr:right-0 rtl:left-0 dark:bg-black">
+                                        <span className="badge badge-outline-primary absolute bg-primary-light text-xs opacity-0 group-hover:opacity-100 dark:bg-black ltr:right-0 rtl:left-0">
                                             Pending
                                         </span>
                                     </div>
                                     <div className="group relative flex items-center py-1.5">
                                         <div className="h-1.5 w-1.5 rounded-full bg-success ltr:mr-1 rtl:ml-1.5"></div>
                                         <div className="flex-1">Send Mail to HR and Admin</div>
-                                        <div className="text-xs text-white-dark ltr:ml-auto rtl:mr-auto dark:text-gray-500">2 min ago</div>
+                                        <div className="text-xs text-white-dark dark:text-gray-500 ltr:ml-auto rtl:mr-auto">2 min ago</div>
 
-                                        <span className="badge badge-outline-success absolute bg-success-light text-xs opacity-0 group-hover:opacity-100 ltr:right-0 rtl:left-0 dark:bg-black">
+                                        <span className="badge badge-outline-success absolute bg-success-light text-xs opacity-0 group-hover:opacity-100 dark:bg-black ltr:right-0 rtl:left-0">
                                             Completed
                                         </span>
                                     </div>
                                     <div className="group relative flex items-center py-1.5">
                                         <div className="h-1.5 w-1.5 rounded-full bg-danger ltr:mr-1 rtl:ml-1.5"></div>
                                         <div className="flex-1">Backup Files EOD</div>
-                                        <div className="text-xs text-white-dark ltr:ml-auto rtl:mr-auto dark:text-gray-500">14:00</div>
+                                        <div className="text-xs text-white-dark dark:text-gray-500 ltr:ml-auto rtl:mr-auto">14:00</div>
 
-                                        <span className="badge badge-outline-danger absolute bg-danger-light text-xs opacity-0 group-hover:opacity-100 ltr:right-0 rtl:left-0 dark:bg-black">
+                                        <span className="badge badge-outline-danger absolute bg-danger-light text-xs opacity-0 group-hover:opacity-100 dark:bg-black ltr:right-0 rtl:left-0">
                                             Pending
                                         </span>
                                     </div>
                                     <div className="group relative flex items-center py-1.5">
                                         <div className="h-1.5 w-1.5 rounded-full bg-black ltr:mr-1 rtl:ml-1.5"></div>
                                         <div className="flex-1">Collect documents from Sara</div>
-                                        <div className="text-xs text-white-dark ltr:ml-auto rtl:mr-auto dark:text-gray-500">16:00</div>
+                                        <div className="text-xs text-white-dark dark:text-gray-500 ltr:ml-auto rtl:mr-auto">16:00</div>
 
-                                        <span className="badge badge-outline-dark absolute bg-dark-light text-xs opacity-0 group-hover:opacity-100 ltr:right-0 rtl:left-0 dark:bg-black">
+                                        <span className="badge badge-outline-dark absolute bg-dark-light text-xs opacity-0 group-hover:opacity-100 dark:bg-black ltr:right-0 rtl:left-0">
                                             Completed
                                         </span>
                                     </div>
                                     <div className="group relative flex items-center py-1.5">
                                         <div className="h-1.5 w-1.5 rounded-full bg-warning ltr:mr-1 rtl:ml-1.5"></div>
                                         <div className="flex-1">Conference call with Marketing Manager.</div>
-                                        <div className="text-xs text-white-dark ltr:ml-auto rtl:mr-auto dark:text-gray-500">17:00</div>
+                                        <div className="text-xs text-white-dark dark:text-gray-500 ltr:ml-auto rtl:mr-auto">17:00</div>
 
-                                        <span className="badge badge-outline-warning absolute bg-warning-light text-xs opacity-0 group-hover:opacity-100 ltr:right-0 rtl:left-0 dark:bg-black">
+                                        <span className="badge badge-outline-warning absolute bg-warning-light text-xs opacity-0 group-hover:opacity-100 dark:bg-black ltr:right-0 rtl:left-0">
                                             In progress
                                         </span>
                                     </div>
                                     <div className="group relative flex items-center py-1.5">
                                         <div className="h-1.5 w-1.5 rounded-full bg-info ltr:mr-1 rtl:ml-1.5"></div>
                                         <div className="flex-1">Rebooted Server</div>
-                                        <div className="text-xs text-white-dark ltr:ml-auto rtl:mr-auto dark:text-gray-500">17:00</div>
+                                        <div className="text-xs text-white-dark dark:text-gray-500 ltr:ml-auto rtl:mr-auto">17:00</div>
 
-                                        <span className="badge badge-outline-info absolute bg-info-light text-xs opacity-0 group-hover:opacity-100 ltr:right-0 rtl:left-0 dark:bg-black">
+                                        <span className="badge badge-outline-info absolute bg-info-light text-xs opacity-0 group-hover:opacity-100 dark:bg-black ltr:right-0 rtl:left-0">
                                             Completed
                                         </span>
                                     </div>
                                     <div className="group relative flex items-center py-1.5">
                                         <div className="h-1.5 w-1.5 rounded-full bg-secondary ltr:mr-1 rtl:ml-1.5"></div>
                                         <div className="flex-1">Send contract details to Freelancer</div>
-                                        <div className="text-xs text-white-dark ltr:ml-auto rtl:mr-auto dark:text-gray-500">18:00</div>
+                                        <div className="text-xs text-white-dark dark:text-gray-500 ltr:ml-auto rtl:mr-auto">18:00</div>
 
-                                        <span className="badge badge-outline-secondary absolute bg-secondary-light text-xs opacity-0 group-hover:opacity-100 ltr:right-0 rtl:left-0 dark:bg-black">
+                                        <span className="badge badge-outline-secondary absolute bg-secondary-light text-xs opacity-0 group-hover:opacity-100 dark:bg-black ltr:right-0 rtl:left-0">
                                             Pending
                                         </span>
                                     </div>
@@ -739,7 +739,7 @@ const Index = () => {
                             <div className="border-t border-white-light dark:border-white/10">
                                 <button type="button" className="group group flex w-full items-center justify-center p-4 font-semibold hover:text-primary">
                                     View All
-                                    <IconArrowLeft className="rtl:rotate-180 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition duration-300 ltr:ml-1 rtl:mr-1" />
+                                    <IconArrowLeft className="transition duration-300 group-hover:translate-x-1 ltr:ml-1 rtl:mr-1 rtl:rotate-180 rtl:group-hover:-translate-x-1" />
                                 </button>
                             </div>
                         </div>
@@ -747,10 +747,7 @@ const Index = () => {
                             <div className="mb-5 flex items-center justify-between dark:text-white-light">
                                 <h5 className="text-lg font-semibold">Transactions</h5>
                                 <div className="dropdown">
-                                    <Dropdown
-                                        placement={`${isRtl ? 'bottom-start' : 'bottom-end'}`}
-                                        button={<IconHorizontalDots className="text-black/70 dark:text-white/70 hover:!text-primary" />}
-                                    >
+                                    <Dropdown placement={`${isRtl ? 'bottom-start' : 'bottom-end'}`} button={<IconHorizontalDots className="text-black/70 hover:!text-primary dark:text-white/70" />}>
                                         <ul>
                                             <li>
                                                 <button type="button">View Report</button>
@@ -789,7 +786,7 @@ const Index = () => {
                                     </div>
                                     <div className="flex">
                                         <span className="grid h-9 w-9 shrink-0 place-content-center rounded-md bg-danger-light text-danger dark:bg-danger dark:text-danger-light">
-                                            <IconUser className="w-6 h-6" />
+                                            <IconUser className="h-6 w-6" />
                                         </span>
                                         <div className="flex-1 px-3">
                                             <div>Amy Diaz</div>
@@ -837,7 +834,7 @@ const Index = () => {
                                         Alan Green
                                     </div>
                                     <button type="button" className="flex h-9 w-9 items-center justify-between rounded-md bg-black text-white hover:opacity-80 ltr:ml-auto rtl:mr-auto">
-                                        <IconPlus className="w-6 h-6 m-auto" />
+                                        <IconPlus className="m-auto h-6 w-6" />
                                     </button>
                                 </div>
                                 <div className="flex items-center justify-between text-white">
@@ -851,14 +848,14 @@ const Index = () => {
                                 <div className="rounded-md bg-white px-4 py-2.5 shadow dark:bg-[#060818]">
                                     <span className="mb-4 flex items-center justify-between dark:text-white">
                                         Received
-                                        <IconCaretDown className="w-4 h-4 text-success rotate-180" />
+                                        <IconCaretDown className="h-4 w-4 rotate-180 text-success" />
                                     </span>
                                     <div className="btn w-full  border-0 bg-[#ebedf2] py-1 text-base text-[#515365] shadow-none dark:bg-black dark:text-[#bfc9d4]">$97.99</div>
                                 </div>
                                 <div className="rounded-md bg-white px-4 py-2.5 shadow dark:bg-[#060818]">
                                     <span className="mb-4 flex items-center justify-between dark:text-white">
                                         Spent
-                                        <IconCaretDown className="w-4 h-4 text-danger" />
+                                        <IconCaretDown className="h-4 w-4 text-danger" />
                                     </span>
                                     <div className="btn w-full  border-0 bg-[#ebedf2] py-1 text-base text-[#515365] shadow-none dark:bg-black dark:text-[#bfc9d4]">$53.00</div>
                                 </div>
@@ -1028,7 +1025,7 @@ const Index = () => {
                                             <td>170</td>
                                             <td>
                                                 <button type="button" className="flex items-center text-danger">
-                                                    <IconMultipleForwardRight className="rtl:rotate-180 ltr:mr-1 rtl:ml-1" />
+                                                    <IconMultipleForwardRight className="ltr:mr-1 rtl:ml-1 rtl:rotate-180" />
                                                     Direct
                                                 </button>
                                             </td>
@@ -1047,7 +1044,7 @@ const Index = () => {
                                             <td>130</td>
                                             <td>
                                                 <button type="button" className="flex items-center text-success">
-                                                    <IconMultipleForwardRight className="rtl:rotate-180 ltr:mr-1 rtl:ml-1" />
+                                                    <IconMultipleForwardRight className="ltr:mr-1 rtl:ml-1 rtl:rotate-180" />
                                                     Google
                                                 </button>
                                             </td>
@@ -1066,7 +1063,7 @@ const Index = () => {
                                             <td>66</td>
                                             <td>
                                                 <button type="button" className="flex items-center text-warning">
-                                                    <IconMultipleForwardRight className="rtl:rotate-180 ltr:mr-1 rtl:ml-1" />
+                                                    <IconMultipleForwardRight className="ltr:mr-1 rtl:ml-1 rtl:rotate-180" />
                                                     Ads
                                                 </button>
                                             </td>
@@ -1085,7 +1082,7 @@ const Index = () => {
                                             <td>35</td>
                                             <td>
                                                 <button type="button" className="flex items-center text-secondary">
-                                                    <IconMultipleForwardRight className="rtl:rotate-180 ltr:mr-1 rtl:ml-1" />
+                                                    <IconMultipleForwardRight className="ltr:mr-1 rtl:ml-1 rtl:rotate-180" />
                                                     Email
                                                 </button>
                                             </td>
@@ -1104,7 +1101,7 @@ const Index = () => {
                                             <td>30</td>
                                             <td>
                                                 <button type="button" className="flex items-center text-primary">
-                                                    <IconMultipleForwardRight className="rtl:rotate-180 ltr:mr-1 rtl:ml-1" />
+                                                    <IconMultipleForwardRight className="ltr:mr-1 rtl:ml-1 rtl:rotate-180" />
                                                     Referral
                                                 </button>
                                             </td>
