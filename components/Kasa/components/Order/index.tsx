@@ -1,39 +1,43 @@
-import React, { useEffect, useState } from 'react';
-import IconMenu from '../../components/Icon/IconMenu';
-import IconSearch from '../../components/Icon/IconSearch';
-import IconClipboardText from '../../components/Icon/IconClipboardText';
+import React, { useState } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import ToGoScreen from '../../components/Kasa/ToGo';
-import DineInScreen from '../../components/Kasa/DineIn';
-import DeliveyScreen from '../../components/Kasa/Delivery';
+import IconSearch from '../../../Icon/IconSearch';
+import IconMenu from '../../../Icon/IconMenu';
+import IconClipboardText from '../../../Icon/IconClipboardText';
 
-const dataMainMenu = [
+interface OrderProps {
+    idOrder: number;
+}
+
+const dataMenu = [
     {
         id: 1,
-        name: 'Dine In',
-        code: 'dine-in',
+        name: 'Buger',
+        code: 'buger',
     },
     {
         id: 2,
-        name: 'To Go',
-        code: 'to-go',
+        name: 'Sushi',
+        code: 'sushi',
     },
     {
         id: 3,
-        name: 'Delivery',
-        code: 'delivery',
+        name: 'Thai Cuisine',
+        code: 'thai-cuisine',
+    },
+    {
+        id: 4,
+        name: 'Drink',
+        code: 'thai-drink',
     },
 ];
 
-const MainKasa = () => {
+const OrderScreen = (props: OrderProps) => {
     const [isShowTaskMenu, setIsShowTaskMenu] = useState(false);
-    const [isScreen, setIsScreen] = useState('to-go');
-
+    const [isScreen, setIsScreen] = useState('');
     const toggleMenu = (e: string) => {
         setIsScreen(e);
         setIsShowTaskMenu(false);
     };
-
     return (
         <div className="relative flex h-full gap-5 sm:h-[calc(100vh_-_150px)]">
             <div
@@ -47,7 +51,7 @@ const MainKasa = () => {
                             <div className="shrink-0">
                                 <IconClipboardText />
                             </div>
-                            <h3 className="text-lg font-semibold ltr:ml-3 rtl:mr-3">HaKaSu - Bristo System</h3>
+                            <h3 className="text-lg font-semibold ltr:ml-3 rtl:mr-3">HaKaSu - Order: #{props.idOrder}</h3>
                         </div>
                         <button type="button" className="block hover:text-primary xl:hidden ltr:mr-3 rtl:ml-3" onClick={() => setIsShowTaskMenu(!isShowTaskMenu)}>
                             <IconMenu />
@@ -57,7 +61,7 @@ const MainKasa = () => {
                     <PerfectScrollbar className="relative h-full grow ltr:-mr-3.5 ltr:pr-3.5 rtl:-ml-3.5 rtl:pl-3.5">
                         <div className="p-5">
                             <div className="flex flex-wrap justify-evenly gap-5">
-                                {dataMainMenu.map((item) => (
+                                {dataMenu.map((item) => (
                                     <div onClick={() => toggleMenu(item.code)} key={item.id}>
                                         <div
                                             className={`flex h-24 w-24 cursor-grab items-center justify-center rounded-md border border-white-light font-semibold shadow dark:border-dark
@@ -96,9 +100,18 @@ const MainKasa = () => {
                         </div>
                     </div>
                     <hr />
-                    <PerfectScrollbar className="relative h-full grow">
-                        <div className="flex flex-wrap content-center justify-normal gap-5 p-5">
-                            {isScreen === 'to-go' ? <ToGoScreen /> : isScreen === 'dine-in' ? <DineInScreen /> : isScreen === 'delivery' ? <DeliveyScreen /> : null}
+                    <PerfectScrollbar className="relative h-full grow sm:h-[calc(100vh_-_150px)]">
+                        <div className="m-5 flex flex-wrap gap-5">
+                            {[0, 1, 2, 3, 5].map((item) => (
+                                <div key={item}>
+                                    <div
+                                        className={`flex h-24 w-24 cursor-grab items-center justify-center rounded-md border border-white-light font-semibold shadow dark:border-dark
+                                                `}
+                                    >
+                                        {item}
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </PerfectScrollbar>
                 </div>
@@ -107,4 +120,4 @@ const MainKasa = () => {
     );
 };
 
-export default MainKasa;
+export default OrderScreen;

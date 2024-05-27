@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Drawer, Button } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import OrderScreen from '../components/Order';
 
 const ToGoScreen = () => {
     const [isClicked, setIsClicked] = useState(Number(null));
@@ -26,8 +27,16 @@ const ToGoScreen = () => {
                     </div>
                 ))}
             </div>
-            <Drawer opened={opened} onClose={close}>
-                <h1>{`Order: ${isClicked}`}</h1>
+            <Drawer opened={opened} onClose={close} size="100%">
+                <OrderScreen idOrder={isClicked} />
+                <div className="mt-5 flex justify-end">
+                    <button type="button" className="btn-lg btn-danger mx-5 rounded" onClick={close}>
+                        Cancel
+                    </button>
+                    <button type="button" className="btn-lg btn-success mx-5 rounded" onClick={close}>
+                        Order
+                    </button>
+                </div>
             </Drawer>
         </div>
     );
