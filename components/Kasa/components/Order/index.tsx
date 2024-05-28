@@ -3,7 +3,8 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import IconSearch from '../../../Icon/IconSearch';
 import IconMenu from '../../../Icon/IconMenu';
 import IconClipboardText from '../../../Icon/IconClipboardText';
-
+import { useSelector } from 'react-redux';
+import { IRootState } from '../../../../store';
 interface OrderProps {
     idOrder: number;
 }
@@ -32,8 +33,10 @@ const dataMenu = [
 ];
 
 const OrderScreen = (props: OrderProps) => {
+    const kasaSlice = useSelector((state: IRootState) => state.kasaSlice);
     const [isShowTaskMenu, setIsShowTaskMenu] = useState(false);
     const [isScreen, setIsScreen] = useState('');
+
     const toggleMenu = (e: string) => {
         setIsScreen(e);
         setIsShowTaskMenu(false);
