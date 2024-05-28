@@ -13,6 +13,7 @@ import 'react-perfect-scrollbar/dist/css/styles.css';
 
 import '../styles/tailwind.css';
 import { NextPage } from 'next';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
     getLayout?: (page: ReactElement) => ReactNode;
@@ -24,20 +25,23 @@ type AppPropsWithLayout = AppProps & {
 
 const App = ({ Component, pageProps }: AppPropsWithLayout) => {
     const getLayout = Component.getLayout ?? ((page) => <DefaultLayout>{page}</DefaultLayout>);
-
+    // Create a client
+    const queryClient = new QueryClient();
     return (
-        <Provider store={store}>
-            <Head>
-                <title>HAKASU - System Bristo</title>
-                <meta charSet="UTF-8" />
-                <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <meta name="description" content="hat solutions made hakasu" />
-                <link rel="icon" href="/favicon.png" />
-            </Head>
+        <QueryClientProvider client={queryClient}>
+            <Provider store={store}>
+                <Head>
+                    <title>HAKASU - System Bristo</title>
+                    <meta charSet="UTF-8" />
+                    <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                    <meta name="description" content="hat solutions made hakasu" />
+                    <link rel="icon" href="/favicon.png" />
+                </Head>
 
-            {getLayout(<Component {...pageProps} />)}
-        </Provider>
+                {getLayout(<Component {...pageProps} />)}
+            </Provider>
+        </QueryClientProvider>
     );
 };
 export default appWithI18Next(App, ni18nConfig);

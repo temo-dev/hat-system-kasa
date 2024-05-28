@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import IconSearch from '../../../Icon/IconSearch';
 import IconMenu from '../../../Icon/IconMenu';
 import IconClipboardText from '../../../Icon/IconClipboardText';
 import { useSelector } from 'react-redux';
 import { IRootState } from '../../../../store';
+import { Menu } from '../../../../store/kasaSlice';
 interface OrderProps {
     idOrder: number;
 }
@@ -36,11 +38,16 @@ const OrderScreen = (props: OrderProps) => {
     const kasaSlice = useSelector((state: IRootState) => state.kasaSlice);
     const [isShowTaskMenu, setIsShowTaskMenu] = useState(false);
     const [isScreen, setIsScreen] = useState('');
-
+    const [listFood, setListFood] = React.useState<Menu>();
     const toggleMenu = (e: string) => {
         setIsScreen(e);
         setIsShowTaskMenu(false);
     };
+    useEffect(() => {
+        const currentMenu = kasaSlice.menus.filter((menu) => menu.name_menu === isScreen);
+        setListFood(currentMenu[0]);
+    }, [isScreen]);
+
     return (
         <div>
             <div className="relative flex h-full gap-5 sm:h-[calc(100vh_-_150px)]">
@@ -65,13 +72,13 @@ const OrderScreen = (props: OrderProps) => {
                         <PerfectScrollbar className="relative h-full grow ltr:-mr-3.5 ltr:pr-3.5 rtl:-ml-3.5 rtl:pl-3.5">
                             <div className="p-5">
                                 <div className="flex flex-wrap justify-evenly gap-5">
-                                    {dataMenu.map((item) => (
-                                        <div onClick={() => toggleMenu(item.code)} key={item.id}>
+                                    {kasaSlice.menus.map((item) => (
+                                        <div onClick={() => toggleMenu(item.name_menu)} key={item.id}>
                                             <div
-                                                className={`flex h-24 w-24 cursor-grab items-center justify-center rounded-md border border-white-light font-semibold shadow dark:border-dark
-                                                ${isScreen === item.code ? `bg-success text-white` : null}`}
+                                                className={`flex h-24 w-24 cursor-grab items-center justify-center rounded-md border border-white-light text-center font-semibold uppercase shadow dark:border-dark
+                                                ${isScreen === item.name_menu ? `bg-success text-white` : null}`}
                                             >
-                                                {item.name}
+                                                {item.name_menu}
                                             </div>
                                         </div>
                                     ))}
@@ -106,13 +113,13 @@ const OrderScreen = (props: OrderProps) => {
                         <hr />
                         <PerfectScrollbar className="relative grow sm:h-[calc(100vh_-_150px)]">
                             <div className="m-5 flex flex-wrap gap-5">
-                                {[0, 1, 2, 3, 5].map((item) => (
-                                    <div key={item}>
+                                {listFood?.foods.map((item) => (
+                                    <div key={item.id}>
                                         <div
-                                            className={`flex h-24 w-24 cursor-grab items-center justify-center rounded-md border border-white-light font-semibold shadow dark:border-dark
+                                            className={`flex h-[150px] w-[150px] cursor-grab items-center justify-center rounded-md border border-white-light text-center font-semibold uppercase shadow dark:border-dark
                                                 `}
                                         >
-                                            {item}
+                                            {item.name_food}
                                         </div>
                                     </div>
                                 ))}
