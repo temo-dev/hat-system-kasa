@@ -9,6 +9,8 @@ import { Food } from '../../../../store/kasaSlice';
 import Image from 'next/image';
 import { Drawer } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import IconCoffee from '../../../Icon/IconCoffee';
+import IconDollarSignCircle from '../../../Icon/IconDollarSignCircle';
 interface OrderProps {
     idOrder: number;
     clickClose: Function;
@@ -72,7 +74,10 @@ const OrderScreen = (props: OrderProps) => {
                                                 ${isScreen === item.name_menu ? `bg-success text-white` : null}`}
                                     >
                                         <Image src={item.background} width={150} height={80} priority alt={item.name_menu} />
-                                        <h2>{item.name_menu}</h2>
+                                        <div className="flex">
+                                            <IconCoffee />
+                                            <h2 className="ml-1">{item.name_menu}</h2>
+                                        </div>
                                     </div>
                                 </div>
                             ))}
@@ -110,7 +115,10 @@ const OrderScreen = (props: OrderProps) => {
                                         className={`flex h-[150px] w-[200px] cursor-grab flex-col items-center justify-around rounded-md border border-white-light bg-gray-300 text-center text-sm font-medium uppercase shadow active:bg-success dark:border-dark`}
                                     >
                                         <Image src={item.image} width={200} height={130} priority alt={item.name_food} />
-                                        <h2>{item.name_food}</h2>
+                                        <div className="flex items-center">
+                                            <IconCoffee />
+                                            <h2 className="ml-1">{item.name_food}</h2>
+                                        </div>
                                     </div>
                                 </div>
                             ))}
@@ -157,6 +165,9 @@ const OrderScreen = (props: OrderProps) => {
                     <hr />
                     <div className="w-full">
                         <button type="button" className="btn btn-primary w-full text-lg">
+                            <span className="mr-2">
+                                <IconDollarSignCircle />
+                            </span>
                             Order
                         </button>
                     </div>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Drawer } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import OrderScreen from '../components/Order';
+import IconEdit from '../../Icon/IconEdit';
 
 const ToGoScreen = () => {
     const [isClicked, setIsClicked] = useState(Number(null));
@@ -18,6 +19,9 @@ const ToGoScreen = () => {
     return (
         <div>
             <button type="button" className="btn btn-success mb-5" onClick={createTogoOrder}>
+                <span className="mr-2">
+                    <IconEdit />
+                </span>
                 Create a new order
             </button>
             <div className="flex flex-wrap gap-5">

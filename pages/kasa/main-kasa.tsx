@@ -6,22 +6,28 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import ToGoScreen from '../../components/Kasa/ToGo';
 import DineInScreen from '../../components/Kasa/DineIn';
 import DeliveyScreen from '../../components/Kasa/Delivery';
+import IconCoffee from '../../components/Icon/IconCoffee';
+import IconPhoneCall from '../../components/Icon/IconPhoneCall';
+import IconTwitter from '../../components/Icon/IconTwitter';
 
 const dataMainMenu = [
     {
         id: 1,
         name: 'Dine In',
         code: 'dine-in',
+        icon: <IconCoffee />,
     },
     {
         id: 2,
         name: 'To Go',
         code: 'to-go',
+        icon: <IconPhoneCall />,
     },
     {
         id: 3,
         name: 'Delivery',
         code: 'delivery',
+        icon: <IconTwitter />,
     },
 ];
 
@@ -63,7 +69,10 @@ const MainKasa = () => {
                                             className={`flex h-24 w-24 cursor-grab items-center justify-center rounded-md border border-white-light font-semibold shadow dark:border-dark
                                                 ${isScreen === item.code ? `bg-success text-white` : null}`}
                                         >
-                                            {item.name}
+                                            <div className="flex flex-col items-center justify-center">
+                                                <div className="mb-2">{item.icon}</div>
+                                                <div>{item.name}</div>
+                                            </div>
                                         </div>
                                     </div>
                                 ))}
