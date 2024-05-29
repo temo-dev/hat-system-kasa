@@ -17,6 +17,18 @@ interface OrderProps {
     code: string;
 }
 
+interface NewOrderFood {
+    id: number;
+    code: string;
+    foods?: [
+        {
+            quantity: number;
+            food: Food;
+        }
+    ];
+    total: number;
+}
+
 const OrderScreen = (props: OrderProps) => {
     const { idOrder, clickClose, code } = props;
     const kasaSlice = useSelector((state: IRootState) => state.kasaSlice);
@@ -24,9 +36,12 @@ const OrderScreen = (props: OrderProps) => {
     const [isScreen, setIsScreen] = useState('');
     const [listFood, setListFood] = React.useState<Food[]>([]);
     const [opened, { open, close }] = useDisclosure(false);
+    const [isSend, handlers] = useDisclosure(false);
     const [quantity, setQuantity] = useState<any>(1);
     const [currentFood, setCurrentFood] = useState<Food>();
-    console.log('listFood', listFood);
+    const [newOrderFood, setNewOrderFood] = useState<NewOrderFood>({ id: idOrder, code: code, total: 0 });
+    const [totalFood, setTotalFood] = useState(0);
+    console.log('newOrderFood', newOrderFood);
     const toggleMenu = (e: string) => {
         setIsScreen(e);
         setIsShowTaskMenu(false);
@@ -36,7 +51,7 @@ const OrderScreen = (props: OrderProps) => {
         setListFood(currentMenu[0]?.foods);
     }, [isScreen]);
 
-    const addFood = (food: Food) => {
+    const openOption = (food: Food) => {
         open();
         setCurrentFood(food);
     };
@@ -44,6 +59,30 @@ const OrderScreen = (props: OrderProps) => {
     const closeSetFood = () => {
         setQuantity(1);
         close();
+    };
+
+    const cancelOrder = () => {
+        clickClose();
+        setNewOrderFood({ id: idOrder, code: code, total: 0 });
+    };
+
+    const addFood = () => {
+        let arrayFoods = newOrderFood.foods;
+        if (currentFood && !arrayFoods) {
+            let cal = quantity * currentFood.price;
+            setNewOrderFood({ ...newOrderFood, foods: [{ food: currentFood, quantity: quantity }], total: cal });
+            setTotalFood(totalFood + quantity);
+        } else if (currentFood) {
+            let cal = quantity * currentFood.price + newOrderFood.total;
+            arrayFoods?.push({ food: currentFood, quantity: quantity });
+            setNewOrderFood({ ...newOrderFood, foods: arrayFoods, total: cal });
+            setTotalFood(totalFood + quantity);
+        }
+        closeSetFood();
+    };
+
+    const sendOrder = () => {
+        handlers.open();
     };
 
     return (
@@ -60,7 +99,7 @@ const OrderScreen = (props: OrderProps) => {
                                 <div className="shrink-0">
                                     <IconClipboardText />
                                 </div>
-                                <h3 className="text-lg font-semibold ltr:ml-3 rtl:mr-3">HaKaSu - Order: #{idOrder}</h3>
+                                <h3 className="text-lg font-semibold ltr:ml-3 rtl:mr-3">{`HaKaSu - ${code}: #${idOrder}`}</h3>
                             </div>
                             <button type="button" className="block hover:text-primary xl:hidden ltr:mr-3 rtl:ml-3" onClick={() => setIsShowTaskMenu(!isShowTaskMenu)}>
                                 <IconMenu />
@@ -103,13 +142,13 @@ const OrderScreen = (props: OrderProps) => {
                                         <IconSearch />
                                     </div>
                                 </div>
-                                <h3 className="text-lg font-semibold ltr:ml-3 rtl:mr-3">HaKaSu - Order: #{idOrder}</h3>
+                                <h3 className="text-lg font-semibold ltr:ml-3 rtl:mr-3">{`HaKaSu - ${code}: #${idOrder}`}</h3>
                             </div>
                         </div>
                         <hr />
                         <div className="flex max-h-[480px] flex-wrap gap-5 overflow-x-scroll px-2">
                             {listFood?.map((item) => (
-                                <div key={item.id} className="py-2 focus:bg-success" onClick={() => addFood(item)}>
+                                <div key={item.id} className="py-2 focus:bg-success" onClick={() => openOption(item)}>
                                     <div
                                         className={`flex h-[150px] w-[200px] cursor-grab flex-col items-center justify-around rounded-md border border-white-light bg-gray-300 text-center text-sm font-medium uppercase shadow active:bg-success dark:border-dark`}
                                     >
@@ -123,11 +162,12 @@ const OrderScreen = (props: OrderProps) => {
                 </div>
             </div>
             <div className="mt-5 flex justify-end">
-                <button type="button" className="btn-lg btn-danger mx-5 rounded" onClick={() => clickClose()}>
+                <button type="button" className="btn-lg btn-danger mx-5 rounded" onClick={cancelOrder}>
                     Cancel
                 </button>
-                <button type="button" className="btn-lg btn-success mx-5 rounded">
-                    Order
+                <button type="button" className="btn-lg btn-success relative mx-5 rounded" onClick={sendOrder}>
+                    <span className="flex items-center">Send Order</span>
+                    <span className="badge absolute -top-3 rounded-full bg-danger p-0.5 px-1.5 ltr:right-0 rtl:left-0">{totalFood}</span>
                 </button>
             </div>
             <Drawer opened={opened} onClose={closeSetFood}>
@@ -160,7 +200,7 @@ const OrderScreen = (props: OrderProps) => {
                     </div>
                     <hr />
                     <div className="w-full">
-                        <button type="button" className="btn btn-primary w-full text-lg">
+                        <button type="button" className="btn btn-primary w-full text-lg" onClick={addFood}>
                             <span className="mr-2">
                                 <IconDollarSignCircle />
                             </span>
@@ -169,6 +209,68 @@ const OrderScreen = (props: OrderProps) => {
                     </div>
                 </div>
             </Drawer>
+            {newOrderFood.foods ? (
+                <Drawer opened={isSend} onClose={handlers.close} size={'xl'}>
+                    <div className="flex h-[calc(100vh_-_50px)] flex-col items-center justify-between px-2">
+                        {/* Table */}
+                        <div className="table-responsive mb-5">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                        <th>Quantity</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {newOrderFood?.foods.map((data) => {
+                                        return (
+                                            <tr key={data.food.id}>
+                                                <td>{data.food.id}</td>
+                                                <td>
+                                                    <div>
+                                                        <Image src={data.food.image} alt={data.food.name_food} priority width={100} height={50} />
+                                                    </div>
+                                                </td>
+                                                <td>{data.food.name_food}</td>
+                                                <td>
+                                                    <div className="inline-flex w-[50px] flex-col">
+                                                        <button
+                                                            type="button"
+                                                            className="flex items-center justify-center rounded-t-md border border-b-0 border-primary bg-primary p-3 font-semibold text-white"
+                                                        >
+                                                            +
+                                                        </button>
+                                                        <input type="text" placeholder="55" className="form-input rounded-none px-2 text-center" min="0" max="25" readOnly value={data.quantity} />
+                                                        <button
+                                                            type="button"
+                                                            className="flex items-center justify-center rounded-b-md border border-t-0 border-primary bg-primary p-3 font-semibold text-white"
+                                                        >
+                                                            _
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
+                        <hr />
+                        <div className="w-full">
+                            <button type="button" className="btn btn-primary w-full text-lg" onClick={addFood}>
+                                <span className="mr-2">
+                                    <IconDollarSignCircle />
+                                </span>
+                                Pay
+                            </button>
+                        </div>
+                    </div>
+                </Drawer>
+            ) : (
+                ''
+            )}
         </>
     );
 };
