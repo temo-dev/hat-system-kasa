@@ -3,6 +3,7 @@ import { Drawer } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import OrderScreen from '../components/Order';
 import IconEdit from '../../Icon/IconEdit';
+import IconPhoneCall from '../../Icon/IconPhoneCall';
 
 const ToGoScreen = () => {
     const [isClicked, setIsClicked] = useState(Number(null));
@@ -28,16 +29,17 @@ const ToGoScreen = () => {
                 {Array.from(Array(currentOrder), (_x, i) => i).map((item) => (
                     <div onClick={() => toggleOrder(item)} key={item}>
                         <div
-                            className={`flex h-24 w-24 cursor-grab items-center justify-center rounded-md border border-white-light font-semibold shadow dark:border-dark
+                            className={`flex h-24 w-24 cursor-grab flex-col items-center justify-center rounded-md border border-white-light font-semibold shadow dark:border-dark
                                                 ${isClicked === item ? `bg-success text-white` : null}`}
                         >
+                            <IconPhoneCall />
                             To Go #{item}
                         </div>
                     </div>
                 ))}
             </div>
             <Drawer opened={opened} onClose={close} size="100%">
-                <OrderScreen idOrder={isClicked} clickClose={close} />
+                <OrderScreen idOrder={isClicked} clickClose={close} code="To Go" />
             </Drawer>
         </div>
     );

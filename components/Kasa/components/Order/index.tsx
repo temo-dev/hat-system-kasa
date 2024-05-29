@@ -14,10 +14,11 @@ import IconDollarSignCircle from '../../../Icon/IconDollarSignCircle';
 interface OrderProps {
     idOrder: number;
     clickClose: Function;
+    code: string;
 }
 
 const OrderScreen = (props: OrderProps) => {
-    const { clickClose } = props;
+    const { idOrder, clickClose, code } = props;
     const kasaSlice = useSelector((state: IRootState) => state.kasaSlice);
     const [isShowTaskMenu, setIsShowTaskMenu] = useState(false);
     const [isScreen, setIsScreen] = useState('');
@@ -59,7 +60,7 @@ const OrderScreen = (props: OrderProps) => {
                                 <div className="shrink-0">
                                     <IconClipboardText />
                                 </div>
-                                <h3 className="text-lg font-semibold ltr:ml-3 rtl:mr-3">HaKaSu - Order: #{props.idOrder}</h3>
+                                <h3 className="text-lg font-semibold ltr:ml-3 rtl:mr-3">HaKaSu - Order: #{idOrder}</h3>
                             </div>
                             <button type="button" className="block hover:text-primary xl:hidden ltr:mr-3 rtl:ml-3" onClick={() => setIsShowTaskMenu(!isShowTaskMenu)}>
                                 <IconMenu />
@@ -73,11 +74,8 @@ const OrderScreen = (props: OrderProps) => {
                                         className={`flex h-[100px] w-[150px] cursor-grab flex-col items-center justify-center rounded-md border border-white-light bg-gray-300 text-center text-base font-medium uppercase shadow dark:border-dark
                                                 ${isScreen === item.name_menu ? `bg-success text-white` : null}`}
                                     >
-                                        <Image src={item.background} width={150} height={80} priority alt={item.name_menu} />
-                                        <div className="flex">
-                                            <IconCoffee />
-                                            <h2 className="ml-1">{item.name_menu}</h2>
-                                        </div>
+                                        <Image src={item.background} width={150} height={80} priority={true} alt={item.name_menu} />
+                                        <h2 className="ml-1">{item.name_menu}</h2>
                                     </div>
                                 </div>
                             ))}
@@ -105,6 +103,7 @@ const OrderScreen = (props: OrderProps) => {
                                         <IconSearch />
                                     </div>
                                 </div>
+                                <h3 className="text-lg font-semibold ltr:ml-3 rtl:mr-3">HaKaSu - Order: #{idOrder}</h3>
                             </div>
                         </div>
                         <hr />
@@ -114,11 +113,8 @@ const OrderScreen = (props: OrderProps) => {
                                     <div
                                         className={`flex h-[150px] w-[200px] cursor-grab flex-col items-center justify-around rounded-md border border-white-light bg-gray-300 text-center text-sm font-medium uppercase shadow active:bg-success dark:border-dark`}
                                     >
-                                        <Image src={item.image} width={200} height={130} priority alt={item.name_food} />
-                                        <div className="flex items-center">
-                                            <IconCoffee />
-                                            <h2 className="ml-1">{item.name_food}</h2>
-                                        </div>
+                                        <Image src={item.image} width={200} height={130} priority={true} alt={item.name_food} />
+                                        <h2 className="ml-1">{item.name_food}</h2>
                                     </div>
                                 </div>
                             ))}
@@ -138,7 +134,7 @@ const OrderScreen = (props: OrderProps) => {
                 <div className="flex h-[calc(100vh_-_50px)] flex-col items-center justify-between px-2">
                     <div className="mb-2">
                         <h1 className="mb-2 text-lg font-medium">{`#: ${currentFood?.id}`}</h1>
-                        <Image src={currentFood?.image || '/favicon.png'} width={300} height={200} priority alt={currentFood?.name_food || 'hatsolution'} />
+                        <Image src={currentFood?.image || '/favicon.png'} width={300} height={200} priority={true} alt={currentFood?.name_food || 'hatsolution'} />
                         <h1 className="mt-2 text-lg font-bold uppercase">{currentFood?.name_food}</h1>
                         <hr />
                         <div>

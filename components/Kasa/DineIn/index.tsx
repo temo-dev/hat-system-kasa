@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Drawer } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import OrderScreen from '../components/Order';
+import IconCoffee from '../../Icon/IconCoffee';
 
 const DineInScreen = () => {
     const [isClicked, setIsClicked] = useState(Number(null));
@@ -21,16 +22,17 @@ const DineInScreen = () => {
                 {[0, 1, 2, 3, 4, 5, 6].map((item) => (
                     <div onClick={() => toggleOrder(item)} key={item}>
                         <div
-                            className={`flex h-24 w-24 cursor-grab items-center justify-center rounded-md border border-white-light font-semibold shadow dark:border-dark
+                            className={`flex h-24 w-24 cursor-grab flex-col items-center justify-center rounded-md border border-white-light font-semibold shadow dark:border-dark
                                                 ${isClicked === item ? `bg-success text-white` : null}`}
                         >
+                            <IconCoffee />
                             Table #{item}
                         </div>
                     </div>
                 ))}
             </div>
             <Drawer opened={opened} onClose={close} size="100%">
-                <OrderScreen idOrder={isClicked} clickClose={close} />
+                <OrderScreen idOrder={isClicked} clickClose={close} code="Dine In" />
             </Drawer>
         </div>
     );
