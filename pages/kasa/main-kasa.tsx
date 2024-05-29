@@ -9,6 +9,9 @@ import DeliveyScreen from '../../components/Kasa/Delivery';
 import IconCoffee from '../../components/Icon/IconCoffee';
 import IconPhoneCall from '../../components/Icon/IconPhoneCall';
 import IconTwitter from '../../components/Icon/IconTwitter';
+import { useSelector } from 'react-redux';
+import { IRootState } from '../../store';
+import { NewOrderFood } from '../../components/Kasa/components/Order';
 
 const dataMainMenu = [
     {
@@ -34,6 +37,14 @@ const dataMainMenu = [
 const MainKasa = () => {
     const [isShowTaskMenu, setIsShowTaskMenu] = useState(false);
     const [isScreen, setIsScreen] = useState('to-go');
+    const kasaSlice = useSelector((state: IRootState) => state.kasaSlice);
+    const [dataOrder, setDataOrder] = useState<NewOrderFood[]>();
+    console.log('dataOrder', dataOrder);
+
+    useEffect(() => {
+        const data = kasaSlice.orders.filter((order) => order.code === isScreen);
+        setDataOrder(data);
+    }, [isScreen, kasaSlice]);
 
     const toggleMenu = (e: string) => {
         setIsScreen(e);
@@ -107,7 +118,13 @@ const MainKasa = () => {
                     <hr />
                     <PerfectScrollbar className="relative h-full grow">
                         <div className="flex flex-wrap content-center justify-normal gap-5 p-5">
-                            {isScreen === 'to-go' ? <ToGoScreen /> : isScreen === 'dine-in' ? <DineInScreen /> : isScreen === 'delivery' ? <DeliveyScreen /> : null}
+                            {isScreen === 'to-go' ? (
+                                <ToGoScreen orders={dataOrder} />
+                            ) : isScreen === 'dine-in' ? (
+                                <DineInScreen orders={dataOrder} />
+                            ) : isScreen === 'delivery' ? (
+                                <DeliveyScreen orders={dataOrder} />
+                            ) : null}
                         </div>
                     </PerfectScrollbar>
                 </div>

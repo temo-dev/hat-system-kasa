@@ -5,19 +5,21 @@ import IconMenu from '../../../Icon/IconMenu';
 import IconClipboardText from '../../../Icon/IconClipboardText';
 import { useSelector } from 'react-redux';
 import { IRootState } from '../../../../store';
-import { Food } from '../../../../store/kasaSlice';
+import { Food, setOrder } from '../../../../store/kasaSlice';
 import Image from 'next/image';
 import { Drawer } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import IconCoffee from '../../../Icon/IconCoffee';
 import IconDollarSignCircle from '../../../Icon/IconDollarSignCircle';
+import { useDispatch } from 'react-redux';
+
 interface OrderProps {
     idOrder: number;
     clickClose: Function;
     code: string;
+    oldOrder?: NewOrderFood;
 }
 
-interface NewOrderFood {
+export interface NewOrderFood {
     id: number;
     code: string;
     foods?: [
@@ -30,6 +32,7 @@ interface NewOrderFood {
 }
 
 const OrderScreen = (props: OrderProps) => {
+    const dispatch = useDispatch();
     const { idOrder, clickClose, code } = props;
     const kasaSlice = useSelector((state: IRootState) => state.kasaSlice);
     const [isShowTaskMenu, setIsShowTaskMenu] = useState(false);
@@ -41,7 +44,7 @@ const OrderScreen = (props: OrderProps) => {
     const [currentFood, setCurrentFood] = useState<Food>();
     const [newOrderFood, setNewOrderFood] = useState<NewOrderFood>({ id: idOrder, code: code, total: 0 });
     const [totalFood, setTotalFood] = useState(0);
-    console.log('newOrderFood', newOrderFood);
+    console.log('kasaSlice', kasaSlice.orders);
     const toggleMenu = (e: string) => {
         setIsScreen(e);
         setIsShowTaskMenu(false);
@@ -67,22 +70,42 @@ const OrderScreen = (props: OrderProps) => {
     };
 
     const addFood = () => {
-        let arrayFoods = newOrderFood.foods;
-        if (currentFood && !arrayFoods) {
-            let cal = quantity * currentFood.price;
-            setNewOrderFood({ ...newOrderFood, foods: [{ food: currentFood, quantity: quantity }], total: cal });
-            setTotalFood(totalFood + quantity);
-        } else if (currentFood) {
-            let cal = quantity * currentFood.price + newOrderFood.total;
-            arrayFoods?.push({ food: currentFood, quantity: quantity });
-            setNewOrderFood({ ...newOrderFood, foods: arrayFoods, total: cal });
-            setTotalFood(totalFood + quantity);
+        if (currentFood) {
+            let arrayFoods = newOrderFood.foods;
+            const oldFood = arrayFoods?.filter((food) => food.food.id === currentFood.id);
+            console.log('oldFood', oldFood);
+            if (!arrayFoods) {
+                let cal = quantity * currentFood.price;
+                setNewOrderFood({ ...newOrderFood, foods: [{ food: currentFood, quantity: quantity }], total: cal });
+                setTotalFood(totalFood + quantity);
+            } else if (oldFood?.length != 0) {
+                let cal = quantity * currentFood.price + newOrderFood.total;
+                arrayFoods.map((food) => {
+                    if (food.food.id === currentFood.id) {
+                        food.quantity = food.quantity + quantity;
+                    }
+                });
+                setNewOrderFood({ ...newOrderFood, foods: arrayFoods, total: cal });
+                setTotalFood(totalFood + quantity);
+            } else {
+                let cal = quantity * currentFood.price + newOrderFood.total;
+                arrayFoods?.push({ food: currentFood, quantity: quantity });
+                setNewOrderFood({ ...newOrderFood, foods: arrayFoods, total: cal });
+                setTotalFood(totalFood + quantity);
+            }
         }
+
         closeSetFood();
     };
 
     const sendOrder = () => {
         handlers.open();
+    };
+
+    const sendOrderToStore = () => {
+        dispatch(setOrder(newOrderFood));
+        handlers.close();
+        cancelOrder();
     };
 
     return (
@@ -211,60 +234,67 @@ const OrderScreen = (props: OrderProps) => {
             </Drawer>
             {newOrderFood.foods ? (
                 <Drawer opened={isSend} onClose={handlers.close} size={'xl'}>
-                    <div className="flex h-[calc(100vh_-_50px)] flex-col items-center justify-between px-2">
-                        {/* Table */}
-                        <div className="table-responsive mb-5">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Image</th>
-                                        <th>Name</th>
-                                        <th>Quantity</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {newOrderFood?.foods.map((data) => {
-                                        return (
-                                            <tr key={data.food.id}>
-                                                <td>{data.food.id}</td>
-                                                <td>
-                                                    <div>
-                                                        <Image src={data.food.image} alt={data.food.name_food} priority width={100} height={50} />
-                                                    </div>
-                                                </td>
-                                                <td>{data.food.name_food}</td>
-                                                <td>
-                                                    <div className="inline-flex w-[50px] flex-col">
-                                                        <button
-                                                            type="button"
-                                                            className="flex items-center justify-center rounded-t-md border border-b-0 border-primary bg-primary p-3 font-semibold text-white"
-                                                        >
-                                                            +
-                                                        </button>
-                                                        <input type="text" placeholder="55" className="form-input rounded-none px-2 text-center" min="0" max="25" readOnly value={data.quantity} />
-                                                        <button
-                                                            type="button"
-                                                            className="flex items-center justify-center rounded-b-md border border-t-0 border-primary bg-primary p-3 font-semibold text-white"
-                                                        >
-                                                            _
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        );
-                                    })}
-                                </tbody>
-                            </table>
-                        </div>
+                    <div className="px-2">
+                        <h1 className="text-lg font-medium capitalize">{`HAKASU - ${newOrderFood.code}: #${newOrderFood.id}`}</h1>
                         <hr />
-                        <div className="w-full">
-                            <button type="button" className="btn btn-primary w-full text-lg" onClick={addFood}>
-                                <span className="mr-2">
-                                    <IconDollarSignCircle />
-                                </span>
-                                Pay
-                            </button>
+                        <div className="flex h-[calc(100vh_-_100px)] flex-col items-center justify-between px-2">
+                            {/* Table */}
+                            <div className="table-responsive mb-5">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Image</th>
+                                            <th>Name</th>
+                                            <th>Quantity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {newOrderFood?.foods.map((data) => {
+                                            return (
+                                                <tr key={data.food.id}>
+                                                    <td>{data.food.id}</td>
+                                                    <td>
+                                                        <div>
+                                                            <Image src={data.food.image} alt={data.food.name_food} priority width={200} height={150} />
+                                                        </div>
+                                                    </td>
+                                                    <td>{data.food.name_food}</td>
+                                                    <td>
+                                                        <div className="inline-flex w-[40px] flex-col">
+                                                            <button
+                                                                type="button"
+                                                                className="flex items-center justify-center rounded-t-md border border-b-0 border-primary bg-primary p-3 font-semibold text-white"
+                                                            >
+                                                                +
+                                                            </button>
+                                                            <input type="text" placeholder="55" className="form-input rounded-none px-2 text-center" min="1" max="100" readOnly value={data.quantity} />
+                                                            <button
+                                                                type="button"
+                                                                className="flex items-center justify-center rounded-b-md border border-t-0 border-primary bg-primary p-3 font-semibold text-white"
+                                                            >
+                                                                _
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            );
+                                        })}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="w-full">
+                                <div className="flex w-full justify-between">
+                                    <h1 className="text-lg font-bold uppercase">total</h1>
+                                    <h1 className="text-lg font-bold uppercase">{`${newOrderFood.total} kc`}</h1>
+                                </div>
+                                <button type="button" className="btn btn-primary mt-2 w-full text-lg" onClick={sendOrderToStore}>
+                                    <span className="mr-2">
+                                        <IconDollarSignCircle />
+                                    </span>
+                                    Send Order
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </Drawer>

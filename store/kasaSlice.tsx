@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { NewOrderFood } from '../components/Kasa/components/Order';
 
 export interface Food {
     id: number;
@@ -20,11 +21,13 @@ export interface Menu {
 interface initialState {
     menus: Menu[];
     countTodo: number;
+    orders: NewOrderFood[];
 }
 
 const initialState: initialState = {
     menus: [],
     countTodo: 0,
+    orders: [],
 };
 
 const kasaSlice = createSlice({
@@ -34,9 +37,12 @@ const kasaSlice = createSlice({
         getMenu(state, { payload }) {
             state.menus = payload[0].menu;
         },
+        setOrder(state, { payload }) {
+            state.orders.push(payload);
+        },
     },
 });
 
-export const { getMenu } = kasaSlice.actions;
+export const { getMenu, setOrder } = kasaSlice.actions;
 
 export default kasaSlice.reducer;

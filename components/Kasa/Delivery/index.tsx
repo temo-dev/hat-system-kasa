@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { Drawer } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import OrderScreen from '../components/Order';
+import OrderScreen, { NewOrderFood } from '../components/Order';
 import IconEdit from '../../Icon/IconEdit';
 import IconTwitter from '../../Icon/IconTwitter';
 
-const DeliveyScreen = () => {
+interface DeliveyScreenProps {
+    orders?: NewOrderFood[];
+}
+
+const DeliveyScreen = (props: DeliveyScreenProps) => {
     const [isClicked, setIsClicked] = useState(Number(null));
     const [opened, { open, close }] = useDisclosure(false);
     const [currentOrder, setCurrentOrder] = useState(0);
@@ -39,7 +43,7 @@ const DeliveyScreen = () => {
                 ))}
             </div>
             <Drawer opened={opened} onClose={close} size="100%">
-                <OrderScreen idOrder={isClicked} clickClose={close} code="Delivery" />
+                <OrderScreen idOrder={isClicked} clickClose={close} code="delivery" />
             </Drawer>
         </div>
     );
