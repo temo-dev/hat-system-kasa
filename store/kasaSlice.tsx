@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-interface Food {
+export interface Food {
     id: number;
     image: string;
     is_discount: boolean;

@@ -7,11 +7,10 @@ import Head from 'next/head';
 
 import { appWithI18Next } from 'ni18n';
 import { ni18nConfig } from 'ni18n.config.ts';
-
+import '../styles/tailwind.css';
 // Perfect Scrollbar
 import 'react-perfect-scrollbar/dist/css/styles.css';
 
-import '../styles/tailwind.css';
 import { NextPage } from 'next';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 

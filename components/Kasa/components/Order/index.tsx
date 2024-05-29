@@ -1,55 +1,35 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import PerfectScrollbar from 'react-perfect-scrollbar';
 import IconSearch from '../../../Icon/IconSearch';
 import IconMenu from '../../../Icon/IconMenu';
 import IconClipboardText from '../../../Icon/IconClipboardText';
 import { useSelector } from 'react-redux';
 import { IRootState } from '../../../../store';
-import { Menu } from '../../../../store/kasaSlice';
+import { Food } from '../../../../store/kasaSlice';
+import Image from 'next/image';
 interface OrderProps {
     idOrder: number;
+    clickClose: Function;
 }
 
-const dataMenu = [
-    {
-        id: 1,
-        name: 'Buger',
-        code: 'buger',
-    },
-    {
-        id: 2,
-        name: 'Sushi',
-        code: 'sushi',
-    },
-    {
-        id: 3,
-        name: 'Thai Cuisine',
-        code: 'thai-cuisine',
-    },
-    {
-        id: 4,
-        name: 'Drink',
-        code: 'thai-drink',
-    },
-];
-
 const OrderScreen = (props: OrderProps) => {
+    const { clickClose } = props;
     const kasaSlice = useSelector((state: IRootState) => state.kasaSlice);
     const [isShowTaskMenu, setIsShowTaskMenu] = useState(false);
     const [isScreen, setIsScreen] = useState('');
-    const [listFood, setListFood] = React.useState<Menu>();
+    const [listFood, setListFood] = React.useState<Food[]>([]);
+    console.log('listFood', listFood);
     const toggleMenu = (e: string) => {
         setIsScreen(e);
         setIsShowTaskMenu(false);
     };
     useEffect(() => {
         const currentMenu = kasaSlice.menus.filter((menu) => menu.name_menu === isScreen);
-        setListFood(currentMenu[0]);
+        setListFood(currentMenu[0]?.foods);
     }, [isScreen]);
 
     return (
-        <div>
+        <>
             <div className="relative flex h-full gap-5 sm:h-[calc(100vh_-_150px)]">
                 <div
                     className={`panel z-10 hidden h-full w-[500px] max-w-full flex-none space-y-4 p-4 xl:relative xl:block xl:h-auto ltr:rounded-r-none ltr:xl:rounded-r-md rtl:rounded-l-none rtl:xl:rounded-l-md ${
@@ -69,27 +49,24 @@ const OrderScreen = (props: OrderProps) => {
                             </button>
                         </div>
                         <hr />
-                        <PerfectScrollbar className="relative h-full grow ltr:-mr-3.5 ltr:pr-3.5 rtl:-ml-3.5 rtl:pl-3.5">
-                            <div className="p-5">
-                                <div className="flex flex-wrap justify-evenly gap-5">
-                                    {kasaSlice.menus.map((item) => (
-                                        <div onClick={() => toggleMenu(item.name_menu)} key={item.id}>
-                                            <div
-                                                className={`flex h-24 w-24 cursor-grab items-center justify-center rounded-md border border-white-light text-center font-semibold uppercase shadow dark:border-dark
+                        <div className="mt-2 flex flex-wrap justify-evenly gap-5">
+                            {kasaSlice.menus.map((item) => (
+                                <div onClick={() => toggleMenu(item.name_menu)} key={item.id} className="py-2">
+                                    <div
+                                        className={`flex h-[100px] w-[150px] cursor-grab flex-col items-center justify-center rounded-md border border-white-light bg-gray-300 text-center text-base font-medium uppercase shadow dark:border-dark
                                                 ${isScreen === item.name_menu ? `bg-success text-white` : null}`}
-                                            >
-                                                {item.name_menu}
-                                            </div>
-                                        </div>
-                                    ))}
+                                    >
+                                        <Image src={item.background} width={150} height={80} priority alt={item.name_menu} />
+                                        <h2>{item.name_menu}</h2>
+                                    </div>
                                 </div>
-                            </div>
-                        </PerfectScrollbar>
+                            ))}
+                        </div>
                     </div>
                 </div>
                 <div className={`overlay absolute z-[5] hidden h-full w-full rounded-md bg-black/60 ${isShowTaskMenu && '!block xl:!hidden'}`} onClick={() => setIsShowTaskMenu(!isShowTaskMenu)}></div>
-                <div className="panel h-full flex-1 overflow-auto p-0">
-                    <div className="flex h-full flex-col">
+                <div className="panel flex-1 p-0">
+                    <div className="flex flex-col">
                         <div className="flex w-full flex-col gap-4 p-4 sm:flex-row sm:items-center">
                             <div className="flex items-center ltr:mr-3 rtl:ml-3">
                                 <button type="button" className="block hover:text-primary xl:hidden ltr:mr-3 rtl:ml-3" onClick={() => setIsShowTaskMenu(!isShowTaskMenu)}>
@@ -111,24 +88,30 @@ const OrderScreen = (props: OrderProps) => {
                             </div>
                         </div>
                         <hr />
-                        <PerfectScrollbar className="relative grow sm:h-[calc(100vh_-_150px)]">
-                            <div className="m-5 flex flex-wrap gap-5">
-                                {listFood?.foods.map((item) => (
-                                    <div key={item.id}>
-                                        <div
-                                            className={`flex h-[150px] w-[150px] cursor-grab items-center justify-center rounded-md border border-white-light text-center font-semibold uppercase shadow dark:border-dark
-                                                `}
-                                        >
-                                            {item.name_food}
-                                        </div>
+                        <div className="flex max-h-[480px] flex-wrap gap-5 overflow-x-scroll px-2">
+                            {listFood?.map((item) => (
+                                <div key={item.id} className="py-2 focus:bg-success">
+                                    <div
+                                        className={`flex h-[150px] w-[200px] cursor-grab flex-col items-center justify-around rounded-md border border-white-light bg-gray-300 text-center text-sm font-medium uppercase shadow active:bg-success dark:border-dark`}
+                                    >
+                                        <Image src={item.image} width={200} height={130} priority alt={item.name_food} />
+                                        <h2>{item.name_food}</h2>
                                     </div>
-                                ))}
-                            </div>
-                        </PerfectScrollbar>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+            <div className="mt-5 flex justify-end">
+                <button type="button" className="btn-lg btn-danger mx-5 rounded" onClick={() => clickClose()}>
+                    Cancel
+                </button>
+                <button type="button" className="btn-lg btn-success mx-5 rounded">
+                    Order
+                </button>
+            </div>
+        </>
     );
 };
 

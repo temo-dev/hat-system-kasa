@@ -5,6 +5,9 @@ const nextConfig = {
     eslint: {
         ignoreDuringBuilds: true,
     },
+    images: {
+        domains: ['bifasngqjuyxvknogopg.supabase.co',],
+    },
 };
 
 const withPWA = require("next-pwa")({

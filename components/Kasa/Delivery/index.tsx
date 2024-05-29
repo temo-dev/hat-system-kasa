@@ -33,15 +33,7 @@ const DeliveyScreen = () => {
                 ))}
             </div>
             <Drawer opened={opened} onClose={close} size="100%">
-                <OrderScreen idOrder={isClicked} />
-                <div className="mt-5 flex justify-end">
-                    <button type="button" className="btn-lg btn-danger mx-5 rounded" onClick={close}>
-                        Cancel
-                    </button>
-                    <button type="button" className="btn-lg btn-success mx-5 rounded" onClick={close}>
-                        Order
-                    </button>
-                </div>
+                <OrderScreen idOrder={isClicked} clickClose={close} />
             </Drawer>
         </div>
     );
