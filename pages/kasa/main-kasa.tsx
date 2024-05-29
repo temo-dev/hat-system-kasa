@@ -6,6 +6,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import ToGoScreen from '../../components/Kasa/ToGo';
 import DineInScreen from '../../components/Kasa/DineIn';
 import DeliveyScreen from '../../components/Kasa/Delivery';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const dataMainMenu = [
     {

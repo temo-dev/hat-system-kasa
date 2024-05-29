@@ -7,6 +7,8 @@ import { useSelector } from 'react-redux';
 import { IRootState } from '../../../../store';
 import { Food } from '../../../../store/kasaSlice';
 import Image from 'next/image';
+import { Drawer } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
 interface OrderProps {
     idOrder: number;
     clickClose: Function;
@@ -18,6 +20,9 @@ const OrderScreen = (props: OrderProps) => {
     const [isShowTaskMenu, setIsShowTaskMenu] = useState(false);
     const [isScreen, setIsScreen] = useState('');
     const [listFood, setListFood] = React.useState<Food[]>([]);
+    const [opened, { open, close }] = useDisclosure(false);
+    const [quantity, setQuantity] = useState<any>(1);
+    const [currentFood, setCurrentFood] = useState<Food>();
     console.log('listFood', listFood);
     const toggleMenu = (e: string) => {
         setIsScreen(e);
@@ -27,6 +32,16 @@ const OrderScreen = (props: OrderProps) => {
         const currentMenu = kasaSlice.menus.filter((menu) => menu.name_menu === isScreen);
         setListFood(currentMenu[0]?.foods);
     }, [isScreen]);
+
+    const addFood = (food: Food) => {
+        open();
+        setCurrentFood(food);
+    };
+
+    const closeSetFood = () => {
+        setQuantity(1);
+        close();
+    };
 
     return (
         <>
@@ -90,7 +105,7 @@ const OrderScreen = (props: OrderProps) => {
                         <hr />
                         <div className="flex max-h-[480px] flex-wrap gap-5 overflow-x-scroll px-2">
                             {listFood?.map((item) => (
-                                <div key={item.id} className="py-2 focus:bg-success">
+                                <div key={item.id} className="py-2 focus:bg-success" onClick={() => addFood(item)}>
                                     <div
                                         className={`flex h-[150px] w-[200px] cursor-grab flex-col items-center justify-around rounded-md border border-white-light bg-gray-300 text-center text-sm font-medium uppercase shadow active:bg-success dark:border-dark`}
                                     >
@@ -111,6 +126,42 @@ const OrderScreen = (props: OrderProps) => {
                     Order
                 </button>
             </div>
+            <Drawer opened={opened} onClose={closeSetFood}>
+                <div className="flex h-[calc(100vh_-_50px)] flex-col items-center justify-between px-2">
+                    <div className="mb-2">
+                        <h1 className="mb-2 text-lg font-medium">{`#: ${currentFood?.id}`}</h1>
+                        <Image src={currentFood?.image || '/favicon.png'} width={300} height={200} priority alt={currentFood?.name_food || 'hatsolution'} />
+                        <h1 className="mt-2 text-lg font-bold uppercase">{currentFood?.name_food}</h1>
+                        <hr />
+                        <div>
+                            <h1 className="my-1 text-sm font-medium capitalize">quantity</h1>
+                            <div className="flex">
+                                <button
+                                    type="button"
+                                    className="flex items-center justify-center border border-r-0 border-primary bg-primary px-3 font-semibold text-white ltr:rounded-l-md rtl:rounded-r-md"
+                                    onClick={() => setQuantity(quantity > 1 ? quantity - 1 : 1)}
+                                >
+                                    -
+                                </button>
+                                <input type="number" placeholder="55" className="form-input rounded-none text-center" min={1} max={100} readOnly value={quantity} />
+                                <button
+                                    type="button"
+                                    className="flex items-center justify-center border border-l-0 border-primary bg-primary px-3 font-semibold text-white ltr:rounded-r-md rtl:rounded-l-md"
+                                    onClick={() => setQuantity(quantity < 100 ? quantity + 1 : 100)}
+                                >
+                                    +
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div className="w-full">
+                        <button type="button" className="btn btn-primary w-full text-lg">
+                            Order
+                        </button>
+                    </div>
+                </div>
+            </Drawer>
         </>
     );
 };
